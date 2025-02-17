@@ -1,0 +1,52 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+{% include 'loja/_navhome.html' %}
+
+<div class="container">
+    <h1>Cadastrar Novo Cliente</h1> {# id, nome_cl, endereco, cidade, telefone, email, obs, senha #}
+    <p> Campos com * são de preenchimento obrigatório</p>
+
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="red"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+    <br>
+    {% from "_formhelp.html" import render_field %}
+    <form method="post" action="">
+      <table>
+        {{ render_field(form.nome, class="form-control", placeholder="Nome completo") }}
+        {{ render_field(form.endereco, class="form-control", placeholder="Rua, Número") }}
+        {{ render_field(form.cidade, class="form-control", placeholder="Cidade") }}
+        {{ render_field(form.telefone, class="form-control", placeholder="13 00000 0000") }}
+        {{ render_field(form.email, class="form-control", placeholder="nome@exemplo.com") }}
+        {{ render_field(form.obs, class="form-control", placeholder="Detalhes") }}
+        {{ render_field(form.senha, class="form-control", placeholder="Digite sua senha") }}
+        {{ render_field(form.confirma, class="form-control", placeholder="Confirme sua senha") }}
+        {# <input type="file" name="Foto"> #}
+      
+      <tr><td></td> <td> <input type=submit value="Cadastrar" class="button cadastrar"></td></tr>
+      </table>
+    </form>
+  <br>
+  <br>
+  <a href="/" class="button2 voltar"> Voltar ao menu inicial </a>
+</div>
+{% endblock content %}
+
+{# <!-- Tabela antiga --> #}
+{#
+      <table>
+        {# <tr><td><label>Identificação de usuário:</label> </td> <td> <input type="text" name="usuario" id="usuario" maxlength="100" placeholder="ID para login"></td></tr> #}
+        <tr> <td><label>Nome*:</label> </td> <td> <input type="text" name="nome" id="nome" maxlength="100" placeholder="Nome completo"></td></tr>
+        <tr> <td><label>Endereço*:</label> </td> <td> <input type="text" name="endereco" id="endereco" maxlength="100" placeholder="Rua, Número"></td></tr>
+        <tr> <td><label>Cidade*:</label> </td> <td> <input type="text" name="cidade" id="cidade" maxlength="100" placeholder="Cidade"></td></tr>
+        <tr> <td><label>Telefone*:</label> </td> <td> <input type="number" name="telefone" id="telefone" maxlength="100" placeholder="13 00000 0000"></td></tr>
+        <tr><td><label>E-mail*:</label> </td> <td><input type="text" name="email" id="email" maxlength="100" placeholder="nome@exemplo.com"></td></tr>
+        <tr> <td><label>Observações:</label> </td> <td> <input type="number" name="nome" id="nome" maxlength="128" placeholder="Detalhes "></td></tr>
+        <tr><td><label>Senha*:</label> </td> <td><input type="password" name="senha" id="senha" placeholder="Digite sua senha"></td></tr>
+        <tr><td> <label>Confirmar senha*:</label> </td> <td><input type="password" name="confirma" id="confirma" placeholder="Confirme sua senha"></td></tr>
+        <tr><td> </td> <td><input type="submit" class="button cadastrar" value="Cadastrar"></td></tr>
+      </table>
+#}

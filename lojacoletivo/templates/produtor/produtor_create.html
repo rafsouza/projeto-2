@@ -1,0 +1,20 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Cadastro de produtores</h1>
+    <form method="post" action="/produtor/create">
+      <table>
+        <tr><td> <label>CPF:</label> </td> <td><input type="text" name="CPF" id="CPF" placeholder="CPF"></td></tr>
+        <tr> <td><label>Nome:</label> </td> <td> <input type="text" name="nome_pr" id="nome_pr" maxlength="100"></td></tr>
+        <tr><td><label>Endereço:</label> </td> <td> <input type="text" name="endereco" id="endereco" maxlength="100"></td></tr>
+        <tr><td><label>Telefone:</label> </td> <td><input type="text" name="telefone" id="telefone"></td></tr>
+        <tr><td><label>E-mail:</label> </td> <td><input type="text" name="email" id="email" maxlength="100"></td></tr>
+        <tr><td> </td> <td><input type="submit" class="button cadastrar" value="Cadastrar"></td></tr>
+      </table>
+    </form>
+  <br>
+  <br>
+  <a href="/adm/home" class="button2 voltar"> Voltar ao menu inicial </a>
+</div>
+{% endblock content %}

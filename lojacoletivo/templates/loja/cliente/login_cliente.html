@@ -1,0 +1,31 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+{% include 'loja/_navhome.html' %}
+
+<div class="container">
+  <h1> Efetuar Login - Cliente </h1>
+  {# Aqui aparece uma mensagem só no código #}
+  {% if msg %}
+    <h5>{{msg}}</h5>
+  {% endif %}
+  
+  {% from "_formhelp.html" import render_field %}
+  <div>
+    <form method="post" action="">
+      <table>
+        {{ render_field(form.email, class="form-control") }}
+        {{ render_field(form.senha, class="form-control") }}
+  
+        <tr><td></td> <td> <input type="submit" class="button cadastrar" value="Entrar"></td></tr>
+      </table>
+    </form>
+  </div>  
+
+  <br>
+  <br>
+  <h4>Caso não possua uma conta, clique no botão abaixo para criar uma</h4>
+  <br>
+  <a href="/loja/cliente/cadastro" class="button2">Cadastrar</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+{% include 'loja/_navhome.html' %}
+
+<div class="container">
+    <h1><font color="#073">Atualizar conta - {{cl.nome_cl}}</font> </h1> {# id, nome_cl, endereco, cidade, telefone, email, obs, senha #}
+    <hr>
+ 
+    
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <br> <font color="red"><h5>{{msg}}</h5></b></font> <br>
+    {% endif %}
+
+
+     <br> <font color="red"><h5>{% from "_formhelp.html" import render_field %}</h5></b></font> <br>
+
+   {% if modo=="1" %}
+    <h3><b>Atualizar dados</b></h3>
+    <p> Campos com * não pode ficar vazios</p>
+
+    <table>
+    <form method="post" action="">
+        {{ render_field(form.nome, class="form-control", value=cl.nome_cl ) }}
+        {{ render_field(form.endereco, class="form-control", value=cl.endereco ) }}
+        {{ render_field(form.cidade, class="form-control", value=cl.cidade) }}
+        {{ render_field(form.telefone, class="form-control", value=cl.telefone) }}
+        {{ render_field(form.email, class="form-control", value=cl.email) }}
+        {{ render_field(form.obs, class="form-control", placeholder="Condições de entrega, etc", value=cl.obs) }}
+        <!--input type="file" name="Foto"-->
+    
+    <tr><td></td> <td> <input type=submit value="Atualizar" class="button cadastrar"></td></tr>
+  
+    </form>
+
+    <tr><td><hr></td></tr>
+    <tr>
+      <td><form action="/loja/cliente/delete/">
+        <input type="submit" value="Excluir conta" class="button3">
+      </form></td>
+    </tr>
+    </table>
+
+    {% elif modo=="2" %}
+    <table>
+    <h3><b>Atualizar senha</b></h3>
+    <form method="post" action="">
+        {{ render_field(form2.senha, class="form-control") }}
+        {{ render_field(form2.confirma, class="form-control") }}
+      
+      <tr><td></td> <td> <input type=submit value="Atualizar" class="button cadastrar"></td></tr>
+     
+    </form>
+    </table>
+    {% endif %}
+
+<br>
+<hr>
+  <a href="/loja/cliente/conta/" class="button2 Voltar"> Voltar para a conta </a>
+</div>
+{% endblock content %}

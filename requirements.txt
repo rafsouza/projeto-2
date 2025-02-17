@@ -1,0 +1,12 @@
+flask
+Flask-SQLAlchemy
+flask-migrate
+Flask-Script
+python-dotenv
+flask-wtf
+flask-bcrypt
+Flask-Uploads
+Flask-Reuploaded
+
+pytz
+xlsxwriter

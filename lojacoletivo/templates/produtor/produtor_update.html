@@ -1,0 +1,44 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Atualização de dados de Produtores</h1>
+  <table>
+    <thead> 
+      <th ALIGN="CENTER">Alterar:</th>
+      <th width="30px"></th> {# Espaçamento entre tabelas #}
+      <th ALIGN="CENTER">Dados atuais</th>
+    </thead>
+    <tbody>
+      <tr>
+      <td>
+    <form method="post" action="/produtor/update/{{pr.CPF}}">
+      <table>
+        <tr><td>CPF:</td> <td><input type="text" name="CPF" id="CPF" value="{{pr.CPF}}" /></td></tr>
+        <tr><td>Nome:</td> <td> <input type="text" name="nome_pr" id="nome_pr"value="{{pr.nome_pr}}" /></td></tr>
+        <tr><td>Endereço:</td> <td><input type="text" name="endereco" id="endereco" value="{{pr.endereco}}" /></td></tr>
+        <tr><td>Telefone:</td> <td><input type="text" name="telefone" id="telefone" value="{{pr.telefone}}" /></td></tr>
+        <tr><td>E-mail: </td> <td><input type="text" name="email" id="email" value="{{pr.email}}" /></td></tr>
+        <tr><td></td> <td><input type="submit" value="Atualizar" class=button2></td></tr>
+      </table>
+    </form>
+      </td>
+        
+      <td></td>
+        
+      <td VALIGN="TOP">
+        CPF: {{pr.CPF}}<br>
+        Nome: {{pr.nome_pr}}<br>
+        Endereço: {{pr.endereco}}<br>
+        Telefone: {{pr.telefone}}<br>
+        E-mail: {{pr.email}}
+      </td>
+      </tr>
+    </tbody>
+  </table>
+        
+<br>
+<br>
+<a href="/produtor/read" class=button> Voltar </a>
+</div>
+{% endblock content %}

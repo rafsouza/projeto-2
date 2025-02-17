@@ -1,0 +1,12 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+   <h2><font color="red">Você tem certezas que deseja remover o pedido {{ped.N_pedido}}?</font></h2> 
+    <form method="post" action="/pedidos/delete/{{ped.N_pedido}}">
+      <input type="submit" value="Sim" class=button />
+   </form>
+   <br>
+   <h4><a href="/pedidos/read" class=button3 > Não, voltar para a lista de pedidos</a></h4>
+</div>
+{% endblock content %}

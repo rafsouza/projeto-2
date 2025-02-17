@@ -1,0 +1,29 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Escolha um cliente para realizar a compra</h1>
+<table class="table table-sm" >
+  <thead>
+    <th>Cliente</th>
+    <th>Compra</th>
+  </thead>
+    
+  <tbody>
+    {% for p in cl %}
+    <tr>
+      <td>{{p.nome_cl}}</td>
+      <td> <a href= "/pedidos/create/{{p.id}}" class=button2 > Selecionar </a> </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>  
+  <br>
+  <br>
+  <a href="/cliente/create" class="button cadastrar"> Cadastrar novo cliente </a><br>
+  <p> </p>
+  <a href="/adm/home" class=button > Voltar ao menu inicial </a>
+</div>
+
+  
+{% endblock content %}

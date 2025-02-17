@@ -1,0 +1,38 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Excluir conta - {{adm.nome}}</h1> <br><br>
+  <h2>Você tem certeza que deseja sua conta {{adm.nome}}?</h2> <br>
+  <h3><font color="red"><b>ATENÇÃO: </b> Se sua conta for do tipo Principal (Gerenciador), certifique-se de que exista pelo menos mais uma outra conta do tipo Principal no sistema. </font></h3> <br>
+  
+  {# Aqui aparece uma mensagem só no código #}
+  {% if msg %}
+  <br> <font color="red"><h5>{{msg}}</h5></b></font> <br>
+  {% endif %}
+  
+  <p>Para confirmar, digite seu e-mail e senha novamente</p>
+  
+      {# 
+        <form method="post" action="/adm/delete/{{adm.id}}">
+        <input type="submit" value="Sim" class=button />
+      </form>
+      #}
+  
+      {% from "_formhelp.html" import render_field %}
+      <div>
+        <form method="post" action="">
+          <table>
+            {{ render_field(form.email_adm, class="form-control") }}
+            {{ render_field(form.senha, class="form-control") }}
+      
+            <tr><td></td> <td> <input type="submit" class="button3 cadastrar" value="EXCLUIR CONTA"></td></tr>
+          </table>
+        </form>
+      </div>  
+      
+      
+    <br>
+    <h4> <a href="/adm/read" class=button > Não</a></h4>
+    </div>
+{% endblock content %}

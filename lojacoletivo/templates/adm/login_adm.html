@@ -1,0 +1,30 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1> Efetuar Login - Administração </h1>
+  <br>
+  {# Aqui aparece uma mensagem só no código #}
+  {% if msg %}
+    <h5>{{msg}}</h5>
+  {% endif %}
+
+  {% from "_formhelp.html" import render_field %}
+  <div>
+  <form method="post" action="">
+    <table>
+      {{ render_field(form.email_adm, class="form-control", placeholder="nome@exemplo.com") }}
+      {{ render_field(form.senha, class="form-control", placeholder="Digite sua senha") }}
+
+      <tr><td></td> <td> <input type="submit" class="button cadastrar" value="Entrar"></td></tr>
+    </table>
+  </form>
+</div>  
+</div>
+{% endblock content %}
+
+{#
+      <tr><td> <label> Usuário: </label> </td> <td> <input type="text" name="id" id="id" placeholder="Digite seu e-mail"></td></tr>
+      <tr> <td> <label> Senha: </label></td> <td> <input type="password"  name="senha" id="senha" placeholder="Senha"></td></tr>
+#}

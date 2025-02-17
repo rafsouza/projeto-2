@@ -1,0 +1,88 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container">
+    <h1>Confirme os dados de sua compra</h1><br><br>
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="orange"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+
+
+    <p><hr></p>  
+    <h3>Dados da entrega </h3>
+       <p>
+        <form action="/loja/cliente/update/">
+        <input type="hidden" name="modo" value="1">
+        <input type="submit" value="Atualizar Dados" class="btn btn-success btn-sm">
+        </form>
+       </p> 
+    <p>Nome: {{cl.nome_cl}} </p>
+    <p>Endereço de entrega: {{cl.endereco}} -  {{cl.cidade}} </p><br>
+    <p>Telefone de contato: {{cl.telefone}} </p>
+    <p><hr></p>
+    
+    <br>
+    <h3>Dados  compra </h3>
+    <p><a href="/carrinho" class="btn btn-warning btn-sm ">Alterar produtos</a></p>
+
+    <div class="container">
+      <div class="row">
+
+        <table>
+          <thead>
+            <th class="p-2" > Item </th>
+            <th class="p-3"> Imagem </th>
+            <th class="p-2"> Nome </th>
+            <th class="p-3"> Quantidade </th>
+            <th class="p-2"> Sub-total </th>
+          </thead>
+
+          <tbody>
+            <tr><td colspan="5"><hr></td></tr>
+
+            {% for key , p in session['CarrinhoLoja'].items() %}
+            <tr>
+              <td align="CENTER">{{loop.index}} </td>
+              <td align="CENTER"> [foto] </td>
+              <td>{{p.nome}} ({{p.porcao}}) </td>
+              <td align="CENTER">{{p.qtd}} </td>
+              {% set subtot = p.qtd|float *p.preco|float %} 
+              <td align="CENTER"> R$ {{"%0.2f"|format((subtot|float))}} </td>
+            </tr>
+            {% endfor %}
+            
+            <tr><td colspan="5"><hr></td></tr>
+            <form action="" method="POST">
+            <tr><td colspan="2">Observações: </td>
+            <td colspan="3"><textarea rows="5" cols="28" name="obs" id="obs" maxlength="128" 
+              placeholder="Observações sobre o pedido, com até 128 caracteres"></textarea></td></tr>
+            <tr><td colspan="5"><hr></td></tr>
+            <tr>
+                <td></td>
+              <td colspan="1" style="text-align:right">Total: </td>
+              <td style="text-align:left"> R$ {{tot}} </td>
+              <td colspan="2">                  
+                  <input type="submit" value="Finalizar compra" class="button2" align="RIGHT">
+                </form>
+              </td>
+            </tr>
+            <tr><td colspan="5"><hr></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <a href="/loja" class="button"> Voltar para a loja </a>
+    <br />
+<p></p>
+
+ 
+</div>
+ {% endblock content %}
+</div>

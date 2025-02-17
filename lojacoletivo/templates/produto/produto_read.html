@@ -1,0 +1,115 @@
+{% extends 'css/layout.html' %} {% block content %}
+
+<div class="container">
+  <h1>Produtos cadastrados</h1>
+  <h3>Opções :</h3>
+  <a href="/produto/create" class="button2"> Cadastrar novo produto </a><br />
+  <p></p>
+  <a href="/produto/categoria_update" class="button2"> Atualizar nome de uma categoria </a>
+  <br>
+  <br>
+  <a href="/adm/home" class="button" > Voltar ao menu inicial </a>
+  <br />
+  <br />
+
+  {% if ver <= 1 %}<!-- Visualização de estoque -->
+  <a href="/produto/read/2" class="button4"> Gerar lista de visualização</a
+  ><br />
+  <p></p>
+  <a href="/produto/read/3" class="button4">
+    Baixar lista de produtos (Excel) </a
+  ><br />
+
+  {% for cat in categorias %}
+  <br />
+  <h4>{{cat.categoria}}</h4>
+  <table width="750px">
+    <thead>
+      <th>Foto</th>
+      <th align="LEFT">Nome</th>
+      <th>
+        Estoque/<br />Quantidade<br />
+        {% if ver == 1 %}
+        <a href="/produto/read/0" class="button2">(Editar)</a>
+        {% endif %} {% if ver == 0 %}
+        <a href="/produto/read/1" class="button2">(Fixar)</a>
+        {% endif %}
+      </th>
+      <th>Porção</th>
+      <th>Preço (R$)</th>
+      <th>Ações</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      {% for p in pd %} {% if p.categoria == cat.categoria %}
+      <tr>
+        <td><img src="{{url_for('static',filename='images/' + p.im_1)}}" alt="{{p.name}}" class="card-img-top" max-width="100%" height="50"></td>
+        <td>{{p.nome_produto}}</td>
+        <td width="150px%" align="CENTER">
+          {% if ver == 1 %} {{p.qtd}} {% endif %} {% if ver == 0 %}
+          <form method="post">
+            <input
+              type="number"
+              step="0.01"
+              name="qtd"
+              id="qtd"
+              size="6"
+              value="{{p.qtd}}"
+            />
+            <input type="submit" value="Atualizar" />
+            <input type="hidden" name="id" id="id" value="{{p.id}}" />
+          </form>
+          {% endif %}
+        </td>
+        <td width="90px" align="CENTER">{{p.porcao}}</td>
+        <td width="90px" align="CENTER">{{p.preco}}</td>
+        <td width="75px">
+          <a href="/produto/update/{{p.id}}" class="button2"> Editar </a>
+        </td>
+        <td width="75px">
+          <a href="/produto/delete/{{p.id}}">
+            <font color="white" class="button3"> Remover </font></a
+          >
+        </td>
+      </tr>
+      {% endif %} {% endfor %}
+    </tbody>
+  </table>
+  {% endfor %} {% endif %} 
+  {% if ver == 2 %}<!-- Visualização versão lista -->
+  <a href="/produto/read/1" class=button > Voltar </a>
+  <br /><br />
+  <div class="container">
+    Coletivo Morro das Panelas 
+    {# - 15 99176 0240 <br />
+    Pedidos até terça-feira, 14h, para entregas na quarta. #}
+    <br /><br />
+
+    {% for cat in categorias %}
+    <br />
+    <h4>{{cat.categoria}}</h4>
+    <table>
+      {% for p in pd %} {% if p.categoria == cat.categoria %}
+      <tr>
+        <td>{{p.nome_produto}} - R$ {{p.preco}} ({{p.porcao}})</td>
+      </tr>
+      {% endif %} {% endfor %}
+    </table>
+    {% endfor %} {% endif %} {# <br />
+    <br />
+    <p>
+      Para fazer um backup do <b>banco de dados</b>, clique no botão abaixo:
+    </p>
+    <a href="/backupdb/banco.db" class="button4"> Backup </a><br />
+    #}
+  </div>
+
+  
+    <br>
+    <a href="/" class="button" > Voltar ao menu inicial </a>
+    <br />
+<p></p>
+
+  {% endblock content %}
+</div>

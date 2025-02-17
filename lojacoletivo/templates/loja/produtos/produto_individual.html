@@ -1,0 +1,53 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+{% include 'loja/_navhome.html' %}
+
+<div class="container">
+
+
+  <div class=" row mt-3">
+    <hr>
+    <div class="col md-5 px-5" > <b><img src="{{url_for('static',filename='images/' + pd.im_1)}}" alt="{{pd.name}} " 
+      class="card-img-top" max-width="250" max-height="250" height="auto" ></b></div>
+    <div class="col md-5">
+        <h3><b>{{pd.nome_produto}}</b></h3>
+        <hr>
+        <p>Preço: R$ {{pd.preco}} ({{pd.porcao}}) </p>
+        <p>Quantidade disponível: {{pd.qtd}} </p>
+        <p><hr></p>
+        <p><h4><b>Descrição</b></h4></p>
+        <p>{{pd.descricao}}</p>
+        <br>
+        <p><hr></p>
+        <form action="{{url_for('/carrinho.addcart')}}" method="POST">
+            <input type="hidden" name="id" value="{{pd.id}}">
+            <br><label for="">Comprar: </label>
+            <input type="number" name="qtd" step="0.1" value="1" min="0.1" max="{{pd.qtd}}" size="5">
+            <label for="">{{pd.porcao}} </label>
+            <br><br><button type="submit" class="button"> Adicionar ao Carrinho</button>
+        </form>
+        <p><hr></p>
+    </div>
+
+ 
+  </div>
+
+  
+    <br>
+    
+<p></p>
+
+</div>
+
+{# Rodapé
+<div style="background-color: #ffe0bd;">
+  <hr>
+  <p style="text-align:center"><b>Coletivo Morro das Panelas - 2024</b></p>
+  <p style="text-align:center">Estrada Armando Cunha, 4109 - Vila Peruíbe</p>
+  <p style="text-align:center">Peruíbe - SP</p>
+  <p style="text-align:center"></p>
+</div> #}
+
+  {% endblock content %}
+</div>

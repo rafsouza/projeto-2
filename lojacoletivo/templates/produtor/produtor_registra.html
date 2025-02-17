@@ -1,0 +1,55 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Produtos - {{pr.nome_pr}}</h1>
+  <br><br>
+    <h3>Opções :</h3>
+  <br>
+    <a href="/produto/create" class="button2"> Cadastrar novo produto </a>
+  <br><br>
+    <a href="/adm/home" class="button"> Voltar ao menu inicial </a></td></tr>
+  <br><br>
+    <table>
+      <tr><td><h4>Produtos já registrados por {{pr.nome_pr}} </h4></td></tr>
+      <tr><td ALIGN="CENTER" VALIGN="TOP" >
+            <br>
+          <ul>
+              {% for tem in ja_tem %}
+                   <li> {{tem}} </li>
+              {% endfor %}
+          </ul>
+          <a href="/produtor/desregistra/{{pr.CPF}}"  class=button3>  Remover produtos </a><br>
+        </td> </tr>
+    </table>
+  
+  <br><br>
+
+    <table>
+    <tr><td></td></tr>
+    <tr VALIGN="BOTTOM">
+      <td>  
+        <h4>Registrar mais produtos para {{pr.nome_pr}}</h4>
+        Selecione os produtos na lista a seguir<br>
+        (aperte a tecla "Ctrl" para selecionar mais de um produto)<br>
+        Ao final, clique no botão "Registrar"
+      </td></tr>
+    
+    <tr VALIGN="TOP"> 
+      
+      <td>
+        <form method="post"> 
+          <select name="selecaoproduto" id="selecaoproduto" style="max-width:60%;" multiple> 
+            {% for p in pd %}
+              <option value="{{p.id}}">{{p.nome_produto}} - ( {{p.porcao}} )</option>
+            {% endfor %}
+          </select>
+          <br>
+         <input type="submit" value="Registrar" class=button />
+        </form>
+
+      </td>
+    </tr>
+  </table>
+</div>
+{% endblock content %}

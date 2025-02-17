@@ -1,0 +1,30 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container">
+    <h1>Compra efetuada! </h1><br><br>
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="orange"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+
+     <font color="#0D3"><h3>Seu pedido foi finalizado com sucesso!</h3></font> 
+    <br>
+    <p>Nº do pedido: {{n}} </p>
+    <p>Obs: {{obs}} </p>
+
+  
+    
+
+    <br>
+    <a href="/loja" class="button" > Voltar para a loja </a>
+    <br />
+<p></p>
+</div>
+
+
+  {% endblock content %}
+
+</div>

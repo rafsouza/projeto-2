@@ -1,0 +1,51 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Atualização de dados de Clientes</h1>
+  <table>
+    <thead> 
+      <th ALIGN="CENTER">Alterar:</th>
+      <th width="30px"></th> {# Espaçamento entre tabelas #}
+      <th ALIGN="CENTER">Dados atuais</th>
+    </thead>
+    <tbody>
+      <tr>
+      <td>
+    <form method="post" action="/cliente/update/{{cl.id}}">
+      <table>
+        <tr><td>Id do Cliente:</td> <td> <input type="text" name="id" id="id" value="{{cl.id}}" /></td></tr>
+        <tr><td>Nome:</td> <td><input type="text" name="nome_cl" id="nome_cl" value="{{cl.nome_cl}}" /></td></tr>
+        <tr><td>Endereço:</td> <td><input type="text" name="endereco" id="endereco" value="{{cl.endereco}}" /></td></tr>
+        <tr><td>Cidade:</td> <td><input type="text" name="cidade" id="cidade" value="{{cl.cidade}}" /></td></tr>
+        <tr><td>Telefone: </td> <td><input type="text" name="telefone" id="telefone" value="{{cl.telefone}}" /></td></tr>
+        <tr><td>E-mail:</td> <td><input type="text" name="email" id="email" value="{{cl.email}}" /></td></tr>
+        <tr><td>Observações:</td> <td><input type="text" name="obs" id="obs" value="{{cl.obs}}" /></td></tr>
+        <tr><td>Senha: </td> <td><input type="password" name="senha" id="senha" maxlength="100" placeholder="Senha do cliente"/></td></tr> 
+        <tr><td></td> <td><input type="submit" value="Atualizar" class=button2></td></tr>
+      </table>
+      </form>
+      </td>
+          
+      <td></td>
+          
+      <td VALIGN="TOP" >
+      <table>
+        <tr><td>Id do Cliente:</td> <td> {{cl.id}} </td></tr>
+        <tr><td>Nome:</td> <td> {{cl.nome_cl}} </td></tr>
+        <tr><td>Endereço:</td> <td> {{cl.endereco}} </td></tr>
+        <tr><td>Cidade:</td> <td> {{cl.cidade}} </td></tr>
+        <tr><td>Telefone: </td> <td> {{cl.telefone}} </td></tr>
+        <tr><td>E-mail:</td> <td> {{cl.email}} </td></tr>
+        <tr><td>Observações:</td> <td> {{cl.obs}} </td></tr>
+        <tr><td>Senha:</td> <td> <font color="#888">"Visualização não disponível"</font>  </td></tr>
+      </table>
+      </td>
+      </tr>
+    </tbody>
+  </table>    
+<br>
+<br>
+<a href="/cliente/read"  class=button > Voltar </a>
+</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+<h2><font color="red">Você tem certezas que deseja remover o produtor {{pr.nome_pr}}?</font></h2> 
+    <form method="post" action="/produtor/delete/{{pr.CPF}}">
+      <input type="submit" value="Sim" class=button />
+    </form>
+  <br>
+    <h4><a href="/produtor/read" class=button3 > Não, voltar para a lista de produtores</a></h4>
+</div>
+{% endblock content %}

@@ -1,0 +1,70 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container">
+    <h1>Dados do pedido </h1><br><br>
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="orange"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+
+
+    <p><hr></p>  
+  
+
+    <div class="container">
+      <div>
+        <table>
+            <tr><td colspan="2"><hr></td></tr>
+            <tr><td class="p-2"><b>Número do pedido :</b> </td><td> {{ped.N_pedido}} </td></tr>
+            <tr><td class="p-2"><b>Estado :</b> </td><td> {{ped.status}} </td></tr>
+            <tr><td class="p-2"><b>Data da compra :</b> </td><td> {{ped.data_pedido}} </td></tr>
+
+            {% if ped.status == "Finalizado" or  ped.status == "Arquivado" %}
+            <tr><td><b>Data da entrega :</b> </td><td> {{ped.data_entrega}} </td></tr>
+            {% endif %}
+        </table>
+
+        <br><br>
+        <b>Observações :</b>
+        <p> {{ped.obs}} </p>
+        <p><hr></p>
+        <br>
+        
+        <h3> Itens  </h3> 
+
+        <table>
+            <thead>
+              <th class="p-2" ALIGN="CENTER">Nome</th>
+              <th class="p-2">Quantidade</th>
+              <th  class="p-2" ALIGN="CENTER"> Preço </th>
+            </thead>
+
+            <tbody>
+            <tr><td colspan="3"><hr></td></tr>
+            {% for p in it %}
+            <tr> <td>{{p.nome}}</td><td ALIGN="CENTER">{{p.qtd}}</td> <td>R$ {{p.preco*p.qtd}}</td></tr>
+            {% endfor %}
+            <tr><td> </td><td> </td></tr>
+            <tr><td></td> <td><b> Total: </b> </td><td> R$ {{total}} </td></tr>
+            <tr><td colspan="3"><hr></td></tr>
+            </tbody>
+        </table>
+          <br>
+        
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <a href="/loja/cliente/pedidos" class="button2"> Voltar para pedidos </a>
+    <br />
+<p></p>
+
+ 
+</div>
+ {% endblock content %}
+</div>

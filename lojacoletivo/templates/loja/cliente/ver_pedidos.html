@@ -1,0 +1,98 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container">
+    <h1>Pedidos realizados</h1><br><br>
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="orange"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+
+
+    {#<h3>Dados da entrega </h3>
+       <p>
+        <form action="/loja/cliente/update/">
+        <input type="hidden" name="modo" value="1">
+        <input type="submit" value="Atualizar Dados" class="btn btn-success btn-sm">
+        </form>
+       </p> 
+    <p>Nome: {{cl.nome_cl}} </p>
+    <p>Endereço de entrega: {{cl.endereco}} -  {{cl.cidade}} </p><br>
+    <p>Telefone de coantato: {{cl.telefone}} </p>
+    
+    
+    <br>
+    <h3>Dados  compra </h3>
+    <p><a href="/carrinho" class="btn btn-warning btn-sm ">Alterar produtos</a></p>#}
+
+    <div class="container">
+      <div class="row">
+
+        <table>
+            <thead>
+              <th class="p-2" > Pedido </th>
+              <th class="p-2"> Data do pedido </th>
+              <th class="p-3"> Situação </th>
+              <th class="p-2"> Data de entrega </th>
+              <th> </th>
+            </thead>
+  
+            <tbody>
+              <tr><td colspan="5"><hr></td></tr>
+              {% for p in pd %}
+             <tr>
+                {# <td>{{loop.index}} </td> #}
+                <td class="p-2"> <b>{{p.N_pedido}}</b> </td>
+                <td class="p-2">{{p.data_pedido}} </td>
+                <td class="p-2"> 
+                {# "Cancelado","Em aberto","Em separação","Finalizado", "Arquivado" #}
+                {% if p.status == "Cancelado" %}
+                <font color="red">{{p.status}}</font> 
+                <td class="p-2"> 
+                </td>
+                {% elif p.status == "Em aberto" %}
+                <font color="blue">{{p.status}}</font> 
+                <td class="p-2"> 
+                </td>
+                {% elif p.status == "Em separação" %}
+                <font color="orange">{{p.status}}</font> 
+                <td class="p-2"> 
+                </td>
+                {% else %}
+                Finalizado
+                <td class="p-2"> 
+                  {{p.data_entrega}}
+                </td>
+                {% endif %}
+                </td>
+                
+  
+                <form method="POST"> {# action="/loja/cliente/ver_item" #}
+  
+                <input type="hidden" name="N_pedido" id="N_pedido" value="{{p.N_pedido}}" > 
+                <td> <button type="submit" class="btn btn-success btn-sm">Ver pedido</button></td>
+                
+              </form>
+            </tr>
+              
+              {% endfor %}
+              <tr><td colspan="5"><hr></td></tr>
+            </tbody>
+          </table>
+        
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <a href="/loja" class="button"> Voltar para a loja </a>
+    <br />
+<p></p>
+
+ 
+</div>
+ {% endblock content %}
+</div>

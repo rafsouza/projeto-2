@@ -1,0 +1,36 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+  <div class=container>
+  
+  <h1 class="display-4 text-center mb-4" style=bold;> Bem-vindo à página de administração do Sistema do Coletivo Morro das Panelas!</h1>
+    
+    <div class="container bg-info text-center mt-4 mb-4">
+
+    {#<h4><font color="red"><b>VERSÃO EM DESENVOLVIMENTO <br> SUJEITA À ALTERAÇÕES</b></font> </h4> 
+    <p>Escolha a opção desejada: </p><br>#}
+    <h4 style="font-family: Lucida Bright, Lucida Bright; font-weight: bold;">Selecione a opção desejada:</h4>
+        <p></p>
+
+    </div>
+
+    <table class="table table-bordered">
+      <tr><td><b>Administração</b></td></tr>
+      <tr><td><a href="/adm/home"> Administração</a> </td></tr>
+      <tr><td><a href="/adm/login_adm">Login Administração</a></td></tr>
+      <tr><td><a href="/adm/create">Cadastrar Administrador</a></td></tr>
+      <tr><td><a href="/adm/read"> Lista de Administradores</a> </td></tr>
+      <tr><td><hr></td></tr>
+      <tr><td><b>Links da loja virtual</b></td></tr>
+      <tr><td><a href="/loja/">Loja</a></td></tr>
+      <tr><td><a href="/loja/cliente/login">Login Cliente</a></td></tr>
+      <tr><td><a href="/loja/cliente/cadastro">Cadastrar Novo Cliente</a></td></tr>
+      <tr><td><hr></td></tr>
+      <tr><td><b>Ferramentas</b></td></tr>
+      <tr><td><a href="/loja/resetar"> RESETAR SEÇÕES</a> </td></tr>
+
+    </table>
+ 
+    
+  </div>
+  {% endblock content %}

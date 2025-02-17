@@ -1,0 +1,131 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+ <div class="container">
+  <h1>Lista de pedidos </h1>
+   <h3> Opções :</h3>
+   <a href="/pedidos/cliente" class=button > Cadastrar novo pedido </a><br>
+   <p> </p>
+   <a href="/adm/home" class=button > Voltar ao menu inicial </a><br>
+   <br>
+   <a href="/pedidos/gerar_excel/2" class=button4 > Baixar lista dos pedidos <b>Finalizados</b> (Excel) </a>  <a href="/pedidos/gerar_excel/1" class=button4 > Baixar lista de <b>todos</b> pedidos (Excel) </a>
+   <br>
+   <br>
+   <br>
+  <h3>Resultados para: {{st}} </h3>  
+   
+   <form action="" method="POST">
+    <label for="estado"> Selecione o estado do pedido <br></label>
+    <select name="st" id="st" value ={{st}}>
+      <option value="Ativos"> Ver pedidos ativos </option>
+      <option value="Em aberto"> Em aberto </option>
+      <option value="Em separação"> Em separação </option>
+      {# <option value="Para entrega"> Para entrega </option> #} {# Opção cancelada #}
+      <option value="Finalizado"> Finalizados </option>
+      <option value="Cancelado"> Cancelados </option>
+      <option value="Arquivado"> Arquivados </option>
+    </select>
+     <input type="submit" value="Filtrar" class=button4 >
+  </form>
+
+   
+ 
+ <table class="table table-sm" >
+   <thead>
+     <th>Pedido</th>
+     <th>ID cliente</th>
+     <th>Situação</th>
+     <th>Data / Hora</th>
+     <th></th>
+     <th>Itens</th>
+     <th></th>
+     <th>Ações</th>
+     <th> </th>
+     <th> </th>
+   </thead>
+
+   <tbody> 
+     {% for p in ped %}
+     <tr ALIGN="CENTER">
+       <td>{{p.N_pedido}}</td>
+       <td >{{p.cliente_id}} </td>
+       <td>{{p.status}}</td>
+       <td>{{p.data_pedido}}</td>
+       <td></td>
+       <td> 
+         <a href= "/pedidos/veritens/{{p.N_pedido}}" class=button > Ver detalhes </a> 
+       </td>
+       <td></td>
+       <td> 
+         {# Botão avançar #}
+         {% if p.status != "Cancelado" and p.status != "Finalizado" and p.status != "Arquivado" %}
+          <form action="" method="POST"> 
+            <input type="hidden" id="stat" name="stat" value="{{p.status}}">
+            <input type="hidden" id="N_pedido" name="N_pedido" value="{{p.N_pedido}}">
+            <input type="hidden" id="modo" name="modo" value=1>
+            <input type="hidden" id="anterior" name="anterior" value="{{p.status}}">
+            <input type="hidden" id="st" name="st" value={{st}}>
+            <input type="submit" value="Avançar" class=button2 >
+         </form>
+         {% endif %}
+
+         
+        {# Botão arquivar #}
+         {% if p.status == "Finalizado" %}
+         <form action="" method="POST"> 
+           <input type="hidden" id="stat" name="stat" value="Arquivado">
+           <input type="hidden" id="N_pedido" name="N_pedido" value="{{p.N_pedido}}">
+           <input type="hidden" id="modo" name="modo" value=1>
+           <input type="hidden" id="anterior" name="anterior" value="{{p.status}}">
+           <input type="hidden" id="st" name="st" value={{st}}>
+           <input type="submit" value="Arquivar" class=button4 >
+         </form>
+         {% endif %}
+         
+
+         {# Botão cancelar #}
+         {% if p.status == "Cancelado" %}
+         <a href="/pedidos/delete/{{p.N_pedido}}"> <font color="white" class=button3 > Excluir pedido </font></a> 
+         {% endif %}
+       </td>
+       <td> 
+         {# <!--form action="" method="POST"> 
+            <label for="stat"> Alterar Situação: </label>
+             <select name="stat" id="stat" value="{{p.status}}">
+               <option value="Em aberto"> Em Aberto </option>
+               <option value="Em separação"> Em separação </option>
+               <option value="Finalizado"> Finalizado </option>
+               <option value="Cancelado"> Cancelado </option>
+             </select>
+            <input type="hidden" id="N_pedido" name="N_pedido" value="{{p.N_pedido}}">
+            <input type="hidden" id="modo" name="modo" value=2>
+            <input type="hidden" id="anterior" name="anterior" value="{{p.status}}">
+            <input type="hidden" id="st" name="st" value={{st}}>
+            <input type="submit" value="Alterar">
+       </form
+         -->#}
+       </td>
+       <td> </td>
+     </tr>
+    {% endfor %}
+   </tbody>
+ </table>
+  <br>
+  <br>
+   <b>Sequência da situação do pedido:</b> em aberto → em separação → finalizado. <br>Ao clicar em "Avançar", o pedido passa para a próxima situação.<br>
+  <br>
+  <b>Observação 1:</b> O <a href="/produto/read/1" class=button5 ">estoque de produtos</a> é alterado quando um item:  <br>
+   <ul>
+     <li>Estava em aberto e avança para em separação ou finalizado (<font color="red">estoque reduz</font>)</li>
+     <li>Se estava cancelado, e passa para em separação ou finalizado (<font color="red">estoque reduz)</font></li>
+     <li>Quando é cancelado, se estava em separação ou finalizado (<font color="green">estoque aumenta)</font></li>
+     <li>Quando é volta para em aberto, se estava em separação ou finalizado (<font color="green">estoque aumenta)</font></li>
+   </ul>
+  <br>
+  <br>
+  <b>Observação 2:</b> Um pedido só podem ser <font color="red">excluído</font> caso sua situação seja <font color="red">"Cancelado"</font> . Para cancelar um item, acesse a opção <font color="blue"> Ver detalhes</font> do pedido desejado. <br>  
+  <br>
+  <b>Observação 3:</b> Um pedido só podem ser <font color="gray">Arquivado</font> caso sua situação seja <font color="gray">"Finalizado"</font> . Para arquivar um item, acesse a opção <font color="blue"> Ver detalhes</font> do pedido desejado. A busca dos Pedidos Ativos não inclui os arquivados <br>
+ </div>
+  
+{% endblock content %}

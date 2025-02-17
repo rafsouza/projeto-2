@@ -1,0 +1,39 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Cadastro de Administradores</h1>
+    <br>
+    {% from "_formhelp.html" import render_field %}
+    <form method="post" action="/adm/create">
+      <table>
+        {{ render_field(form.nome, class="form-control", placeholder="Nome completo") }}
+        {{ render_field(form.usuario_adm, class="form-control", placeholder="Usuário para login") }}
+        {{ render_field(form.email_adm, class="form-control", placeholder="nome@exemplo.com") }}
+        {{ render_field(form.obs, class="form-control", placeholder="Até 128 caracteres") }}
+        {{ render_field(form.senha, class="form-control", placeholder="Digite sua senha") }}
+        {{ render_field(form.confirma, class="form-control", placeholder="Confirme sua senha") }}
+        {# <input type="file" name="Foto"> #}
+      
+      <tr><td></td> <td> <input type=submit value="Cadastrar" class="button cadastrar"></td></tr>
+      </table>
+    </form>
+  <br>
+  <br>
+  <a href="/adm/home" class="button2 voltar"> Voltar ao menu inicial </a>
+</div>
+{% endblock content %}
+
+
+{# <!-- Tabela antiga --> #}
+{#
+      <table>
+        <tr> <td><label>Nome:</label> </td> <td> <input type="text" name="nome" id="nome" maxlength="100" placeholder="Nome completo"></td></tr>
+        <tr><td><label>Usuário:</label> </td> <td> <input type="text" name="usuario_adm" id="usuario_adm" maxlength="100" placeholder="Usuário para login"></td></tr>
+        <tr><td><label>E-mail:</label> </td> <td><input type="text" name="email_adm" id="email_adm" maxlength="100" placeholder="nome@exemplo.com"></td></tr>
+        <tr><td><label>Senha:</label> </td> <td><input type="password" name="senha" id="senha" placeholder="Digite sua senha"></td></tr>
+        <tr><td> <label>Confirmar senha:</label> </td> <td><input type="password" name="confirma" id="confirma" placeholder="Confirme sua senha"></td></tr>
+        <tr><td> </td> <td><input type="submit" class="button cadastrar" value="Cadastrar"></td></tr>
+      </table>
+  
+  #}

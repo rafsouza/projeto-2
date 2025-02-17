@@ -1,0 +1,38 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Excluir conta - {{cl.nome_cl}}</h1> <br><br>
+<h2>Você tem certeza que deseja sua conta {{cl.nome_cl}}?</h2> <br>
+<h3><font color="red"><b>ATENÇÃO: </b> Não exclua sua conta caso tenha pedidos ativos, caso contrário eles poderão não ser entregues</font></h3> <br>
+
+{# Aqui aparece uma mensagem só no código #}
+{% if msg %}
+<br> <font color="red"><h5>{{msg}}</h5></b></font> <br>
+{% endif %}
+
+<p>Para confirmar, digite seu e-mail e senha novamente</p>
+
+    {# 
+      <form method="post" action="/cliente/delete/{{cl.id}}">
+      <input type="submit" value="Sim" class=button />
+    </form>
+    #}
+
+    {% from "_formhelp.html" import render_field %}
+    <div>
+      <form method="post" action="">
+        <table>
+          {{ render_field(form.email, class="form-control") }}
+          {{ render_field(form.senha, class="form-control") }}
+    
+          <tr><td></td> <td> <input type="submit" class="button3 cadastrar" value="EXCLUIR CONTA"></td></tr>
+        </table>
+      </form>
+    </div>  
+    
+    
+  <br>
+  <h4> <a href="/loja/cliente/conta/" class=button > Não, voltar para minha conta</a></h4>
+  </div>
+{% endblock content %}

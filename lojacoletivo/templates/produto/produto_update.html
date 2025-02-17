@@ -1,0 +1,71 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Atualização de dados: {{p.nome_produto}}</h1>
+  <table>
+    <thead> 
+      <th>Alterar:</th>
+      <th width="30px"></th> {# Espaçamento entre tabelas #}
+      <th>Dados atuais</th>
+    </thead>
+    <tbody>
+      <tr>
+      <td>
+        <form method="post" action="/produto/update/{{p.id}}" enctype = multipart/form-data>
+      <table>
+        <tr>
+          <td>Nome do produto:</td>
+          <td><input type="text" name="nome_produto" id="nome_produto" value={{p.nome_produto}}></td>
+        </tr>
+        <tr>
+          <td>Porção:</td>
+          <td><input type="text" name="porcao" id="porcao" value={{p.porcao}}></td>
+        </tr>
+        <tr>
+          <td>Quantidade (de porções):</td>
+          <td><input type="number" step=0.01 name="qtd" id="qtd" value={{p.qtd}}></td>
+        </tr>
+        <tr>
+          <td>Preço:</td>
+          <td><input type=number step=0.01 name="preco" id="preco" value={{p.preco}}></td>
+        </tr>
+        <tr>
+          <td>Categoria:</td>
+          <td><input type="text" name="categoria" id="categoria" value="{{p.categoria}}"></td>
+        </tr>
+        <tr>
+          <td> Descrição: </td>
+          <td><textarea rows="5" cols="20" name="descricao" id="descricao" maxlength="256">{{p.descricao}}</textarea></td>
+        </tr>
+        <tr>
+          <td><img src="{{url_for('static',filename='images/' + p.im_1)}}" alt="{{p.name}}" class="card-img-top" max-width="80" height="auto"></td>
+          <td><input type="file" name="im_1" id="im_1"></td>
+        </tr>
+
+        <tr><td></td><td><input type="submit" value="Atualizar" class=button2> </td></tr>
+      </table>
+
+        </form>
+       </td>
+        <td> </td>
+        <td VALIGN="TOP">
+          <table>
+            <tr><td>Nome: </td><td> {{p.nome_produto}}</td></tr>
+            <tr><td>Porção: </td><td>{{p.porcao}}</td></tr>
+            <tr><td>Quantidade: </td><td>{{p.qtd}}</td></tr>
+            <tr><td>Preço (R$): </td><td>{{p.preco}}</td></tr>
+            <tr><td>Categoria : </td><td>{{p.categoria}}</td></tr>
+            <tr><td>Descrição :</td><td>{{p.descricao}}</td></tr>
+          </table>   
+        </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <a href="/produto/read/1" class=button > Voltar </a>
+
+</div>
+{% endblock content %}

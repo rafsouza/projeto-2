@@ -1,0 +1,28 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Cadastro de clientes</h1>
+  {# Aqui aparece uma mensagem só no código #}
+  {% if msg %}
+    <h5><font color="red"><b>{{msg}}</b></font> </h5>
+  {% endif %}
+  <form method="post" action="/cliente/create">
+    <table>
+      <tr><td>ID do Cliente: </td> <td><input type="text" name="id" id="id" maxlength="100" value="{{id}}"></td></tr>
+      <tr><td>Nome: </td> <td><input type="text" name="nome_cl" id="nome_cl" maxlength="100" value="{{nome_cl}}"></td></tr>
+      <tr><td>Endereço: </td> <td><input type="text" name="endereco" id="endereco" maxlength="100" value="{{endereco}}"></td></tr>
+      <tr><td>Cidade: </td> <td><input type="text" name="cidade" id="cidade" maxlength="100" value="{{cidade}}"></td></tr>
+      <tr><td>Telefone: </td> <td><input type="text" name="telefone" id="telefone" value="{{telefone}}" ></td></tr> 
+      <tr><td>E-mail: </td> <td><input type="text" name="email" id="email" maxlength="100" value="{{email}}"/></td></tr> 
+      <tr><td>Observações: </td> <td><input type="text" name="obs" id="obs" maxlength="128" placeholder="Até 128 caracteres" value="{{obs}}"/></td></tr> 
+      <tr><td>Senha: </td> <td><input type="password" name="senha" id="senha" maxlength="100" placeholder="Senha do cliente"/></td></tr> 
+      <tr><td>Confirmar senha: </td> <td><input type="password" name="confirma" id="confirma" maxlength="100" placeholder="Confirme a senha"/></td></tr> 
+      <tr><td></td> <td><input type="submit" class="button" value="Cadastrar"></td></tr>
+    </table>
+  </form>
+<br>
+<br>
+<a href="/adm/home" class="button2"> Voltar ao menu inicial </a>
+</div>
+{% endblock content %}

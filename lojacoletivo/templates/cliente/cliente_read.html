@@ -1,0 +1,39 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Lista de clientes cadastrados</h1>
+<h3> Opções:</h3>
+<a href="/cliente/create" class="button" > Cadastrar novo cliente </a><br>
+  <p></p>
+<a href="/adm/home" class="button2" > Voltar ao menu inicial </a><br>
+<br>
+  <p></p>
+  <div style='text-align:center'>
+  <a href="/cliente/gerar_excel" class="button4" > Baixar lista de clientes (Excel) </a><br>
+<br>
+<br>
+
+<table class="table table-sm" >
+  <thead>
+    <th>Cliente</th>
+    <th>Compra</th>
+    <th>Cadastro</th>
+    <th>Excluir</th>
+  </thead>
+    
+  <tbody>
+    {% for p in cl %}
+    <tr>
+      <td>{{p.nome_cl}}</td>
+      <td> <a href= "/pedidos/create/{{p.id}}" class="button" > Incluir Compra</a> </td>
+      <td> <a href="/cliente/update/{{p.id}}" class="button2" > Editar </a> </td>
+      <td> <a href="/cliente/delete/{{p.id}}" class="button3" > <font color="white"> Remover </font></a> </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>
+</div>
+
+  
+{% endblock content %}

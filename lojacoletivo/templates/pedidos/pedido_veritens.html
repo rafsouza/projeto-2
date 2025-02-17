@@ -1,0 +1,117 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Detalhes do pedido {{ped.nome}}</h1>
+  <br>
+  <br>
+  <a href="/pedidos/read" class=button > Voltar à lista de pedidos </a><br> 
+  <p> </p>
+  <a href="/adm/home" class=button > Voltar ao menu inicial </a>
+  <br>
+  <br>
+  <table>
+    <tr><td><b>Número do pedido :</b> </td><td> {{ped.N_pedido}} </td><td></td></tr>
+    <tr><td><b>Estado :</b> </td><td> {{ped.status}} </td>
+      <td>
+        <form action="" method="POST"> 
+         <select name="stat" id="stat" value="{{ped.status}}">
+           {% if ped.status != "Arquivado" %}
+           <option value="Em aberto"> Em Aberto </option>
+           <option value="Em separação"> Em separação </option>
+           {# <option value="Para entrega"> Para entrega </option> #} {# Opção cancelada #}
+           <option value="Finalizado"> Finalizado </option>
+           <option value="Cancelado"> Cancelado </option>
+           {% endif %}
+           
+           {% if ped.status == "Finalizado" %}
+            <option value="Arquivado"> Arquivado </option>
+           {% endif %}
+           
+           {% if ped.status == "Arquivado" %}
+            <option value="Finalizado"> Finalizado </option>
+           {% endif %}
+           
+         </select>
+          <input type="hidden" id="anterior" name="anterior" value="{{ped.status}}">
+          <input type="submit" value="Alterar" class=button2 >
+       </form>
+      </td></tr>
+    <tr><td><b>Data da compra :</b> </td><td> {{ped.data_pedido}} </td>
+      <td>
+       {% if ped.status == "Cancelado" %}
+       <a href="/pedidos/delete/{{ped.N_pedido}}"> <font color="red"> Excluir pedido </font></a> 
+       {% endif %}
+        
+       {% if ped.status == "Finalizado" %}
+        <form action="" method="POST"> 
+          <input type="hidden" id="stat" name="stat" value="Arquivado">
+          <input type="hidden" id="anterior" name="anterior" value="{{ped.status}}">
+          <input type="submit" value="Arquivar">
+        </form>
+       {% endif %}
+        
+      </td></tr>
+    {% if ped.status == "Finalizado" or  ped.status == "Arquivado" %}
+    <tr><td><b>Data da entrega :</b> </td><td> {{ped.data_entrega}} </td><td></td></tr>
+    {% endif %}
+
+  </table>
+  <br>
+  <b>Observações :</b>
+  <p> {{ped.obs}} </p>
+  <br>
+  
+  <h3> Itens  </h3> 
+  <table>
+    <thead>
+      <th ALIGN="CENTER">Nome</th>
+      <th>Quantidade</th>
+      <th ALIGN="CENTER"> Preço </th>
+    </thead>
+    <tbody>
+    {% for p in it %}
+    <tr> <td>{{p.nome}}</td><td ALIGN="CENTER">{{p.qtd}}</td> <td>R$ {{p.preco*p.qtd}}</td></tr>
+    {% endfor %}
+    <tr><td> </td><td> </td></tr>
+    <tr><td></td> <td><b> Total: </b> </td><td> R$ {{total}} </td></tr>
+    </tbody>
+  </table>
+  <br>
+  
+  <h3>Dados do cliente </h3>
+  <table>
+    <tr><td> <b>Comprador :</b> </td> <td> {{cl.nome_cl}}</td></tr>
+    <tr><td><b>ID :</b> </td><td>{{cl.id}} </td></tr>
+    <tr><td><b>Endereço :</b> </td><td>{{cl.endereco}} </td></tr>
+    <tr><td><b>Cidade :</b> </td><td>{{cl.cidade}} </td></tr>
+    <tr><td><b>Telefone :</b> </td><td>{{cl.telefone}} </td></tr>
+    <tr><td><b>E-mail :</b> </td><td>{{cl.email}} </td></tr>
+    <tr><td><b>Observações :</b> </td><td>{{cl.obs}} </td></tr>
+  </table>  
+  <br>
+  <br>
+  <br>
+  <h3> Produtores dos itens do pedido </h3>
+  <table>
+     <tr><td><hr></td><td><hr></td></tr> {# NOTA: estou usando o <hr>  aqui, mas o mais apropriado é algo especifico para tabelas mesmo. Só usei o <hr> porque estava sem tempo para pesquisar a formatação de tabelas. Substituir quando o <hr> for conveniente.#}
+    {% for i in it %}
+      <tr><td ALIGN="RIGTH"><b>Item: </b></td> <td><b>{{i.nome}}</b></td></tr>
+      <tr><td><hr></td><td><hr></td></tr>
+    
+    {% for p in pr %}
+    {% if p[0] == i.produto_id %}
+    
+    <tr><td>Produtor: </td><td>{{p[1]}} </td></tr>
+    <tr><td></td><td>{{p[2]}}</td></tr>
+    <tr><td></td><td>Tel: {{p[3]}}</td></tr>
+    <tr><td></td><td>{{p[4]}}</td></tr>
+    {% endif %}
+    {% endfor %}
+     <tr><td><hr></td><td><hr></td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+ 
+<div class="container">
+ <h1>Remover produtos - {{pr.nome_pr}}</h1>
+  <a href="/produtor/registra/{{pr.CPF}}" class=button2 > Incluir produtos </a><br> <br>
+  <a href="/produtor/read" class=button2 > Lista de produtores </a><br><br>
+  <a href="/adm/home" class=button > Voltar ao menu inicial </a><br><br>
+  <br>
+  Selecione os produtos na lista a seguir<br>
+  (aperte a tecla "Ctrl" para selecionar mais de um produto)<br>
+  Ao final, clique no botão "Remover"<br>
+
+  <table> 
+    <tr VALIGN=TOP> 
+      <td>
+    <form method="post">
+      <select name="selecaoproduto" id="selecaoproduto" multiple> 
+        {% for tem in ja_tem %}}
+        
+          <option value="{{tem.id}}">{{tem.nome_produto}} - ( {{tem.porcao}} )</option>
+        {% endfor %}
+      </select>
+      <br>
+      <input type="submit" value="Remover" class=button3 />
+    </form>
+    
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+{% endblock content %}

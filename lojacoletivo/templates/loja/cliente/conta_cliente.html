@@ -1,0 +1,64 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+{% include 'loja/_navhome.html' %}
+
+<div class="container">
+    <h1><font color="#073">Informações da conta - {{cl.nome_cl}}</font> </h1> {# id, nome_cl, endereco, cidade, telefone, email, obs, senha #}
+    <hr>
+ 
+    <br>
+    <h4>Seus Dados</h4>
+    <br>
+    
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <br> <font color="red"><h5>{{msg}}</h5></b></font> <br>
+    {% endif %}
+    
+    <table>
+      {# <tr><td>Id do Cliente:</td> <td> {{cl.id}} </td></tr> #}
+      <tr><td>Nome:</td> <td> {{cl.nome_cl}} </td></tr>
+      <tr><td>Endereço:</td> <td> {{cl.endereco}} </td></tr>
+      <tr><td>Cidade:</td> <td> {{cl.cidade}} </td></tr>
+      <tr><td>Telefone: </td> <td> {{cl.telefone}} </td></tr>
+      <tr><td>E-mail:</td> <td> {{cl.email}} </td></tr>
+      <tr><td>Observações:</td> <td> {{cl.obs}} </td></tr>
+      <!--tr><td>Senha:</td> <td> <font color="#888">"Visualização não disponível"</font>  </td></tr-->
+    </table>
+    <br><br>
+    <hr>
+    <br>
+    <table>
+      <tr><td><h3>Opções</h3></td></tr>
+      <tr>
+        
+        <td><form action="/loja/cliente/pedidos">
+          <input type="submit" value="Ver Pedidos" class="button4">
+        </form></td>
+
+        <td><form action="/loja/cliente/update/">
+          <input type="hidden" name="modo" value="1">
+          <input type="submit" value="Atualizar Dados" class="button4">
+        </form></td>
+
+        <td><form action="/loja/cliente/update/">
+          <input type="hidden" name="modo" value="2">
+          <input type="submit" value="Atualizar Senha" class="button4">
+        </form></td>
+
+      </tr>
+      {#<tr><td><hr></td></tr>
+      <tr>
+        <td><form action="/loja/cliente/delete/">
+          <input type="submit" value="Excluir conta" class="button3">
+        </form></td>
+      </tr>#}
+    </table>
+
+<br>
+<hr>
+  <a href="/loja/" class="button2 voltar"> Voltar para a loja </a>
+</div>
+{% endblock content %}

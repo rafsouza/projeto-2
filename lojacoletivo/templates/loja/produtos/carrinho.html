@@ -1,0 +1,88 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container">
+    <h1>Carrinho </h1><br><br>
+    {# Aqui aparece uma mensagem só no código #}
+    {% if msg %}
+    <font color="orange"><h5>{{msg}}</h5></b></font> 
+    {% endif %}
+
+    {% if 'CarrinhoLoja' in session %}
+    {% if session['CarrinhoLoja'].items()|length > 0 %}
+    <div class="container">
+      <div class="row">
+
+        <table>
+          <thead>
+            <th class="p-2" > Item </th>
+            <th class="p-3"> Imagem </th>
+            <th class="p-2"> Nome </th>
+            <th class="p-3"> Quantidade </th>
+            <th class="p-2"> Preço (porção) </th>
+            <th class="p-2"> Sub-total </th>
+            <th class="p-3"> Atualizar </th>
+            <th class="p-2"> Remover </th>
+          </thead>
+
+          <tbody>
+            <tr><td colspan="8"><hr></td></tr>
+            {% for key , p in session['CarrinhoLoja'].items() %}
+            <tr>
+              <td>{{loop.index}} </td>
+              <td><img src="{{url_for('static',filename='images/' + p.im_1)}}" alt="{{p.name}}" class="card-img-top" max-width="100%" height="50"></td>
+              <td>{{p.nome}} ({{p.porcao}}) </td>
+
+              <form action="/carrinho/updatecart/{{key}}" method="POST"> {# {url_for('/updatecart', val=key)} #}
+
+              <td><input type="number" name="qtd" step="0.1" min="0.1" max="p.qtmax" value="{{p.qtd}}" size="5">  </td>
+              <td> R$ {{p.preco}} </td>
+              {% set subtot = p.qtd|float *p.preco|float %} {# qtd|replace({',':'.'}) #}
+              <td> R$ {{"%0.2f"|format((subtot|float))}} </td>
+              <td> <button type="submit" class="btn btn-outline-success btn-sm">Atualizar</button></td>
+              
+            </form>
+
+            <td><a href="{{url_for('/carrinho.delitem',id=key)}}" class="btn btn-outline-danger btn-sm"> Remover</a></td>
+            </tr>
+            
+            {% endfor %}
+            <tr><td colspan="8"><hr></td></tr>
+            <tr>
+              <td  colspan="2"></td>
+              <td colspan="1" style="text-align:right">Total: </td>
+              <td style="text-align:left"> R$ {{tot}} </td>
+              <td colspan="4" style="text-align:left"><a href="{{url_for('/loja.confirmar_pedido')}}" class="button btn-sm">Confirmar Compra</a></td>
+            </tr>
+            <tr><td colspan="8"><hr></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <a href="{{url_for('/carrinho.esvaziar')}}" class="button3">Esvaziar carrinho</a>
+    <br>
+    {% endif %}
+    {% endif %}
+    <br>
+    <a href="/loja" class="button" > Voltar para a loja </a>
+    <br />
+<p></p>
+</div>
+
+{# Rodapé
+<div style="background-color: #ffe0bd;">
+  <hr>
+  <p style="text-align:center"><b>Coletivo Morro das Panelas - 2024</b></p>
+  <p style="text-align:center">Estrada Armando Cunha, 4109 - Vila Peruíbe</p>
+  <p style="text-align:center">Peruíbe - SP</p>
+  <p style="text-align:center"></p>
+</div> #}
+
+  {% endblock content %}
+
+</div>

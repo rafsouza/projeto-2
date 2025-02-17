@@ -1,0 +1,68 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1><font color="#073">Atualizar dados - {{adm.nome}}</font> </h1> {#(nome, usuario_adm, email_adm, senha, principal, obs)#}
+  <hr>
+
+  
+  {# Aqui aparece uma mensagem só no código #}
+  {% if msg %}
+  <br> <font color="red"><h5>{{msg}}</h5></b></font> <br>
+  {% endif %}
+
+
+  {% from "_formhelp.html" import render_field %}
+
+ 
+ {% if modo=="1" %}
+  <h3><b>Atualizar dados</b></h3>
+
+  {% if adm.principal == 1 %}
+  <p>Permissões de administrador: Principal (Gerenciador)</p>
+  {% else %}
+  {#<td><input type="hidden" name="principal" value="0"></p>#}
+  <p>Permissões de administrador: Padrão</td>
+  {% endif %}
+
+  <form method="post" action="/adm/update/{{adm.id}}">
+  <table>
+      {{ render_field(form.nome, class="form-control", value=adm.nome) }}
+      {{ render_field(form.usuario_adm, class="form-control", value=adm.usuario_adm ) }}
+      {{ render_field(form.email_adm, class="form-control", value=adm.email_adm) }}
+      {{ render_field(form.obs, class="form-control", value=adm.obs) }}
+       {% if adm.principal == 1 %}
+       <td>Conta Principal :</td><td align="center"><input type="checkbox" name="principal" value="1" checked></td>
+      {#{ render_field(form.principal, class="form-control", value=1, default="checked" ) }#}
+       {% else %}
+       <td>Conta Principal :</td><td align="center"><input type="checkbox" name="principal" value="0"></td>
+       {#{ render_field(form.principal, class="form-control") }#}
+       {% endif %}
+
+      <!--input type="file" name="Foto"-->
+  
+  <tr><td></td> <td> <input type=submit value="Atualizar" class="button cadastrar"></td></tr>
+  </table>
+  </form>
+
+
+  {% elif modo=="2" %}
+  <h3><b>Atualizar senha</b></h3>
+  <form method="post" action="">
+    <table>
+      {{ render_field(form2.senha, class="form-control") }}
+      {{ render_field(form2.confirma, class="form-control") }}
+    
+    <tr><td></td> <td> <input type=submit value="Atualizar" class="button cadastrar"></td></tr>
+    </table>
+  </form>
+
+  {% endif %}
+
+<br>
+<hr>
+<a href="/adm/home" class="button2 voltar"> Voltar ao menu inicial </a>
+</div>
+
+
+{% endblock content %}

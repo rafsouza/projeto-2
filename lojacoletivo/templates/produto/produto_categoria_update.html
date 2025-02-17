@@ -1,0 +1,29 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Atualização de categoria</h1>
+  <br>
+  <a href="/produto/read/1" class=button2 > Voltar para a lista de produtos </a>
+  <br><br>
+  <a href="/adm/home" class=button> Voltar ao menu inicial </a>
+  <br><br>
+  <form method="post"> {# <!--action="/produto/update/{{produto.id}}"--> #}
+    <div class="form-group">
+      <table>
+        <tr><td>Escolha a categoria a ser alterada:</td>
+          <td>
+          <select name="anterior" class="form-control" style="max-width:60%;">
+            {% for cat in categorias %}
+            <option value="{{cat.categoria}}" > {{cat.categoria}} </option>
+            {% endfor %}
+          </select>
+          </td></tr>
+        <tr><td><label for="nome">Novo nome da categoria escolhida: </label></td><td><input type="text" class="form-control" id="novo" name="novo" value="{{novo}}"></td></tr>
+        <tr><td></td><td><input type="submit" value="Atualizar" class=button></td></tr>
+      </table>
+    </div>
+  </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+<h1>Lista de Produtores Cadastrados</h1> 
+  <p></p>
+<h3> Opções :</h3>
+<a href="/produtor/create" class=button > Cadastrar novo produtor </a><br>
+  <p></p>
+<a href="/adm/home" class=button > Voltar ao menu inicial </a><br>
+<br>
+<a href="/produtor/gerar_excel" class=button4 > Baixar lista de produtores (Excel) </a><br>
+<br>
+<br> 
+
+<table class="table table-bordered table-stripped">
+  <thead>
+    <th>Nome</th>
+    <p></p>
+    <th>Produtos</th>
+     <p></p>
+    <th>Cadastro</th>
+     <p></p>
+    <th>Excluir</th>
+     <p></p>
+  </thead>
+  <p></p>
+
+  <tbody>
+    {% for p in pr %}
+    <tr>
+      <td>{{p.nome_pr}}</td>
+      <td> <a href= "/produtor/registra/{{p.CPF}}" class=button2 > Incluir/Excluir </a> </td>
+       <p></p>
+      <td> <a href="/produtor/update/{{p.CPF}}" class=button > Editar </a> </td>
+       <p></p>
+      <td> <a href="/produtor/delete/{{p.CPF}}" class=button3 > <font color="white"> Remover </a> </font></td>
+   </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+  
+{% endblock content %}

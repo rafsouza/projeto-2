@@ -1,0 +1,95 @@
+{% extends 'css/layout.html' %} 
+
+{% block content %}
+<div>
+  {% include 'loja/_navhome.html' %}
+ <div class="container-xl">
+
+  {% if qcat %}
+  {% set pd =qcat %} {# Lista dos produtos exibidos -> por categoria #}
+  {% set dest ='/loja.get_cat' %} {# Página destino, para paginação #}
+  {# set id =idpag #}
+  <div class="text-center h2 text-warning"> CATEGORIA: <br>  {{qcat.items[0].categoria}}  </div> {# {{qcat[0].categoria}} #}
+
+  {% else %}
+  {% set dest ='/loja.loja_main' %} {# Página destino, para paginação #}
+  {% set id ='' %} {# Rota home não tem argumento id, mas precisa passar algo para paginação #}
+  <div class="text-center h2 text-success"> Todos os produtos - Todas as categorias </div>
+  {% endif %}
+  <br />
+
+    <div class="row">
+      {% for p in pd %} {# if p.categoria == cat.categoria #}
+      {% if p.qtd != 0 %}
+      <div class="col-md-3">
+        <div class="card mt-2">
+
+         {#  <div align="CENTER"> <b><h3>[FOTO]</h3></b></div> #}
+         <div><img src="{{url_for('static',filename='images/' + p.im_1)}}" alt="{{p.name}}" class="card-img-top" max-width="auto" height="200"></div>
+          <div align="CENTER"><a href="/loja/{{p.id}}"> <b>{{p.nome_produto}} - {{p.porcao}}</b> </a> </div>
+          <div align="CENTER">R$ {{p.preco}} ({{p.porcao}}) <br> Disponíveis {{p.qtd}}</div>
+          <div class="card-footer">
+            <a href="/loja/{{p.id}}" class="btn btn-warning btn-sm float-left mx-2">Info</a>{# text-center  #}
+            {#<a href="#" align="CENTER" class="button2 btn-sm ">Adicionar</a>  float-left #}
+            <form action="{{url_for('/carrinho.addcart')}}" method="POST">
+              <input type="hidden" name="id" value="{{p.id}}">
+              <input type="number"name="qtd" id="" step="0.1" min="0.1" max="{{p.qtd}}" value="1" size="3">
+              <button type="submit" class="btn btn-primary btn-sm text-center">Adicionar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    
+  </div>
+
+
+    <div class="row"> {# Paginação #}
+      <div class="col text-center "> 
+
+      {% if pd.has_prev %}
+      <a href="{{url_for(dest,id=id,pag=pd.prev_num)}}" class="btn btn-warning  btn-sm mt-3">Anterior</a> 
+      {% endif %}
+
+      {% if pd.total > 12 %}
+          {% for pagenum in pd.iter_pages(left_edge=1, right_edge=2, left_current=1, right_current=2) %} 
+              {% if pagenum %}
+
+                  {% if pd.page == pagenum %}
+                  <a href="{{url_for(dest,id=id, pag=pagenum)}}" class="btn btn-primary btn-sm mt-3">{{pagenum}}</a> 
+                  {% else %}
+                  <a href="{{url_for(dest,id=id,pag=pagenum)}}" class="btn btn-outline-warning  btn-sm mt-3">{{pagenum}}</a> 
+                  {% endif %}
+
+              {% else %}
+              ...
+              {% endif %}
+          {% endfor %}
+
+      {% endif %}
+
+      {% if pd.has_next %}
+      <a href="{{url_for(dest,id=id,pag=pd.next_num)}}" class="btn btn-warning  btn-sm mt-3">Próxima </a> 
+      {% endif %}
+
+        </div>
+    </div>{# Paginação #}
+  
+    <br>
+<p></p>
+
+
+{# Rodapé
+<div style="background-color: #ffe0bd;">
+  <hr>
+  <p style="text-align:center"><b>Coletivo Morro das Panelas - 2024</b></p>
+  <p style="text-align:center">Estrada Armando Cunha, 4109 - Vila Peruíbe</p>
+  <p style="text-align:center">Peruíbe - SP</p>
+  <p style="text-align:center"></p>
+</div> #}
+
+  {% endblock content %}
+
+</div>

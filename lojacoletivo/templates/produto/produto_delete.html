@@ -1,0 +1,12 @@
+{% extends 'css/layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h2><font color="red">Você tem certeza que deseja remover o produto {{p.nome_produto}}?</font></h2> 
+  <form method="post" action='/produto/delete/{{p.id}}'>
+    <input type="submit" value="Sim, remova" class=button />
+  </form>
+  <p> </p>
+  <h4><a href="/produto/read/1" class=button3 > Não, voltar para a lista de produtos </a></h4>
+</div>
+{% endblock content %}
